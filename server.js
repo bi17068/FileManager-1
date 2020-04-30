@@ -6,6 +6,7 @@ const calc = require('./lib/calc.js');
 const xlsx = require('./lib/analyzeXlsx.js');
 const auth = require('./lib/auth');
 const fs = require('fs');
+const authInfo = require('basic-auth');
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -33,10 +34,10 @@ app.use(auth);
 app.get('/index', (req, res) => {
   console.log('[' + new Date() + '] login ' + req.connection.remoteAddress);
   const filenames = fs.readdirSync("./uploads");
-
-
+  var accountInfo = authInfo(req)
+  console.log(accountInfo.name)
   //calc.ranking();// このブロックは実行されているがこのライブラリ出力されない
-  res.render('index.ejs', {fileName: filenames});
+  res.render('index.ejs', {fileName: filenames, userName: accountInfo.name});
 });
 
 app.get('/upload', (req, res) => {
