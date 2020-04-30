@@ -34,6 +34,7 @@ app.get('/index', (req, res) => {
   console.log('[' + new Date() + '] login ' + req.connection.remoteAddress);
   const filenames = fs.readdirSync("./uploads");
 
+
   //calc.ranking();// このブロックは実行されているがこのライブラリ出力されない
   res.render('index.ejs', {fileName: filenames});
 });
