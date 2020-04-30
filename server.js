@@ -66,7 +66,7 @@ app.get('/logout', (req, res) => {
   console.log('[' + new Date() + '] logout ' + req.connection.remoteAddress);
   res.end('<!DOCTYPE html><html lang="ja"><body>' +
     '<h1>ログアウトしました</h1>' +
-    '<a href="/posts">ログイン</a>' +
+    '<a href="/" class="button">ログインページへ</a>' +
     '</body></html>'
   );
 });
