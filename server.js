@@ -3,7 +3,7 @@ const path = require('path');
 const express = require('express');
 const multer = require('multer');
 const calc = require('./lib/calc.js');
-const xlsx = require('./lib/analyzXlsx.js');
+const xlsx = require('./lib/analyzeXlsx.js');
 const auth = require('./lib/auth');
 const fs = require('fs');
 
@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 app.use(auth);
 
 app.get('/index', (req, res) => {
-  console.log('[' + new Date() + '] Requested by ' + req.connection.remoteAddress);
+  console.log('[' + new Date() + '] login ' + req.connection.remoteAddress);
   const filenames = fs.readdirSync("./uploads");
 
   //calc.ranking();// このブロックは実行されているがこのライブラリ出力されない
@@ -43,8 +43,14 @@ app.get('/upload', (req, res) => {
 });
 
 app.get('/chart', (req, res) => {
-  console.log(xlsx.analyzXlsx());
-  res.render('chart.ejs', {xlsx: xlsx.analyzXlsx()});
+  let object = xlsx.analyzeXlsx();
+  console.log(object);
+  res.render('chart.ejs', {
+    sheet: object.sheet,
+    names: object.names,
+    end: object.end
+  });
+  res.end();
 });
 
 app.post('/upload', upload.single('file'), function (req, res) {
@@ -54,10 +60,23 @@ app.post('/upload', upload.single('file'), function (req, res) {
 });
 
 app.get('/logout', (req, res) => {
-  res.writeHead(401, {'Content-Type': 'text/plain; charset=utf-8'})
+  res.writeHead(401, {
+    'Content-Type': 'text/html; charset=utf-8'
+  });
   console.log('[' + new Date() + '] logout ' + req.connection.remoteAddress);
-  res.end('ログアウトしました');
-  return;
+  res.end('<!DOCTYPE html><html lang="ja"><body>' +
+    '<h1>ログアウトしました</h1>' +
+    '<a href="/posts">ログイン</a>' +
+    '</body></html>'
+  );
+});
+
+app.get('/favicon.ico', (req, res) => {
+  res.writeHead(200, {
+    'Content-Type': 'image/vnd.microsoft.icon'
+  });
+  const favicon = fs.readFileSync('./public/images/logo.jpg');
+  res.end(favicon);
 });
 
 app.listen(port, function(){

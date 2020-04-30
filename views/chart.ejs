@@ -17,11 +17,34 @@
         </div>
         <h1 class="title">ファイル内容表示</h1>
 
-        <% if (typeof xlsx !== 'undefined') { %>
-            <% for (var i = 0; i < 5; i++) { %>
-                <P><%= xlsx[i]['A1'] %> <%= xlsx[i]['B1'] %> <%= xlsx[i]['C1'] %></P>
+        <table border="1" width="50%" height="70%">
+            <tr>
+              <th>対応</th>
+              <th>対応車</th>
+              <th>進捗</th>
+              <th>重要度</th>
+              <th>対応予定日</th>
+              <th>完了日</th>
+              <th>工数(人日)</th>
+              <th>種別</th>
+              <th>備考</th>
+            </tr>
+        <% if (typeof sheet !== 'undefined') { %>
+            <% for (var i = 0; i < 10; i++) { %>
+                <tr>
+                    <th><%= sheet[i][names[0]] %></th>
+                    <th><%= sheet[i][names[1]] %></th>
+                    <th><%= sheet[i][names[2]] %></th>
+                    <th><%= sheet[i][names[3]] %></th>
+                    <th><%= sheet[i][names[4]] %></th>
+                    <th><%= sheet[i][names[5]] %></th>
+                    <th><%= sheet[i][names[6]] %></th>
+                    <th><%= sheet[i][names[7]] %></th>
+                    <th><%= sheet[i][names[8]] %></th>
+                  </tr>
             <% } %>
         <% }%>
+        </table>
 
         <br>
         <a href="/index" class="button">ホームに戻る</a>
