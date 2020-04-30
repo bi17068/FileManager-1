@@ -35,7 +35,10 @@ app.get('/index', (req, res) => {
   console.log('[' + new Date() + '] login ' + req.connection.remoteAddress);
   const filenames = fs.readdirSync("./uploads");
   var accountInfo = authInfo(req)
-  console.log(accountInfo.name)
+  console.log(accountInfo.name + 'がログインしました')
+  //ログインのログがこのページにくるたびに表示されるから改善したい。
+  //console.log(document.referrer);　直前のページを取得してログインしたときを識別できるかなと。
+  
   //calc.ranking();// このブロックは実行されているがこのライブラリ出力されない
   res.render('index.ejs', {fileName: filenames, userName: accountInfo.name});
 });
