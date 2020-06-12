@@ -15,21 +15,9 @@ function handleFile(e) {
       type: 'base64',
       cellDates: true,
     });
-    
+
     output = to_json(wb);// JSONが返ってくる
-    // console.log(output);
-    $("pre#result").html(JSON.stringify(output, null, 2));
-
-
-
-
-
-    // $("pre#result").html(JSON.stringify(output, null, 2));
-    // $("#xlsx").val(output);
   };
-  ///////
-
-  ///////
   reader.readAsArrayBuffer(f);
 }
 
@@ -51,13 +39,13 @@ function to_json(workbook) {
   let workSheet = workbook.Sheets[sheetNameList[0]];
   // let colNames = [workSheet['H4'].w,
   workSheet['I4'].w,
-    workSheet['J4'].w,
-    workSheet['K4'].w,
-    workSheet['L4'].v,
-    workSheet['M4'].v,
-    workSheet['N4'].w,
-    workSheet['O4'].w,
-    workSheet['P4'].w;
+  workSheet['J4'].w,
+  workSheet['K4'].w,
+  workSheet['L4'].v,
+  workSheet['M4'].v,
+  workSheet['N4'].w,
+  workSheet['O4'].w,
+  workSheet['P4'].w;
 
   let endCol = workSheet['!ref'].match(/\:[A-Z+]([0-9]+)/)[1];  // エクセルデータの末端の行数を取得する
   workSheet['!ref'] = `H4:P${endCol}`;                          // 取得したいセルの範囲を指定し直す。H4からP列の末端行まで
