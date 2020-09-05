@@ -21,8 +21,12 @@
           <input type="text" name="slackId" placeholder="Slack ID">
           <input type="password" name="passWord" placeholder="パスワード">
           <input type="submit" value="登録">
-          <a href="/index" class="button">ホームに戻る</a>
         </form>
+
+        <% if (typeof updateMsg !== 'undefined') { %>
+            <h3><%= updateMsg %></h3>
+        <% } %>
+        <a href="/index" class="button">ホームに戻る</a>
 
 </body>
 

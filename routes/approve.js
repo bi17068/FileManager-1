@@ -27,7 +27,7 @@ function Get(req, res) {
           accounts: accounts,
           fileName: file.fileName
         });
-      })
+      });
     });
 
   });

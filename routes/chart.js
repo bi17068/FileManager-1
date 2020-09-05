@@ -21,11 +21,18 @@ function Get(req, res) {
         where: {fileId: file.fileId},
         order:[['bugId', 'ASC']]
       }).then((data) => {
-        res.render('chart', {
-          accountName: account.accountName,
-          xlsk: data,
-          fileName: file.fileName
-        });
+        if(data){
+          res.render('chart', {
+            accountName: account.accountName,
+            xlsk: data,
+            fileName: file.fileName
+          });
+        }else{
+          res.render('chart', {
+            accountName: account.accountName,
+            fileName: file.fileName
+          });
+        }
       });
     });
   });
